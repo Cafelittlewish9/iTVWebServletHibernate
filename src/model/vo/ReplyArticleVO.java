@@ -1,5 +1,6 @@
 package model.vo;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -8,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ReplyArticleVO {
+public class ReplyArticleVO implements Serializable {
 	@XmlElement(required = true)
 	private int replyArticleId;
 	@XmlElement(required = true)

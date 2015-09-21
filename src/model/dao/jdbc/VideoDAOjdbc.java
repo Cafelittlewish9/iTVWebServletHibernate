@@ -12,26 +12,31 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
 import model.dao.VideoDAO;
 import model.vo.MemberVO;
 import model.vo.VideoVO;
 import util.ConvertType;
 import util.GC;
+import util.HibernateUtil;
 
 public class VideoDAOjdbc implements VideoDAO {
 //	private static final String URL = GC.URL;
 //	private static final String USERNAME = GC.USERNAME;
 //	private static final String PASSWORD = GC.PASSWORD;
-	private DataSource datasource;
-
-	public VideoDAOjdbc() {
-		try {
-			InitialContext context = new InitialContext();
-			this.datasource = (DataSource) context.lookup(GC.DATASOURCE);
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+//	private DataSource datasource;
+//
+//	public VideoDAOjdbc() {
+//		try {
+//			InitialContext context = new InitialContext();
+//			this.datasource = (DataSource) context.lookup(GC.DATASOURCE);
+//		} catch (NamingException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	private static final String SELECT_BY_VIDEOTITLE = "SELECT v.*,m.memberAccount FROM video v Join member m ON v.memberId = m.memberId WHERE videoTitle LIKE ?";
 
@@ -114,32 +119,14 @@ public class VideoDAOjdbc implements VideoDAO {
 	@Override
 	public List<VideoVO> selectAll() {
 		List<VideoVO> list = null;
-		try (
-				Connection conn = datasource.getConnection();
-//				Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				PreparedStatement stmt = conn.prepareStatement(SELECT_ALL);
-				ResultSet rset = stmt.executeQuery();) {
-			list = new ArrayList<VideoVO>();
-			while (rset.next()) {
-				VideoVO bean = new VideoVO();
-				bean.setVideoId(rset.getInt("videoId"));
-				bean.setMemberId(rset.getInt("memberId"));
-				bean.setVideoWebsite(rset.getString("videoWebsite"));
-				bean.setVideoClassName(rset.getString("videoClassName"));
-				bean.setVideoTitle(rset.getString("videoTitle"));
-				bean.setVideoName(rset.getString("videoName"));
-				bean.setVideoPath(rset.getString("videoPath"));
-				bean.setVideoUploadTime(ConvertType.convertToLocalTime(rset.getTimestamp("videoUploadTime")));
-				bean.setVideoWatchTimes(rset.getLong("videoWatchTimes"));
-				bean.setVideoDescription(rset.getString("videoDescription"));
-				bean.setVideoDescriptionModifyTime(
-						ConvertType.convertToLocalTime(rset.getTimestamp("videoDescriptionModifyTime")));
-				MemberVO member = new MemberVO();
-				member.setMemberAccount(rset.getString("memberAccount"));
-				bean.setMember(member);
-				list.add(bean);
-			}
-		} catch (SQLException e) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Video");
+			list = query.list();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
 			e.printStackTrace();
 		}
 		return list;
@@ -253,7 +240,7 @@ public class VideoDAOjdbc implements VideoDAO {
 
 		// Update
 		// String url =
-		// "http://nextinnovation.cloudapp.net/ITV/PlayVideo.jsp?filename=";
+		// "http://ne。xtinnovation.cloudapp.net/ITV/PlayVideo.jsp?filename=";
 		// String path = "../mp4/";
 		// String videoname = "Mamamoo";
 		//

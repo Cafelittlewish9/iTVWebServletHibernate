@@ -1,63 +1,55 @@
 package model.vo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@Entity
-@Table(name = "Member")
-// @XmlRootElement(name="Member")
-// @XmlAccessorType(XmlAccessType.FIELD)
-public class MemberVO {
+ @XmlRootElement(name="Member")
+ @XmlAccessorType(XmlAccessType.FIELD)
+public class MemberVO implements Serializable {
 
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private int memberId;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String memberAccount;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private byte[] memberPassword;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String memberEmail;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String memberFB;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String memberGoogle;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String memberTwitter;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String memberName;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String memberNickname;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private java.util.Date memberBirthday;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private byte[] memberPhoto;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private java.util.Date memberRegisterTime;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String memberSelfIntroduction;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String broadcastWebsite;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String broadcastTitle;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String broadcastClassName;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private java.util.Date broadcastTime;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private String broadcastDescription;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private long broadcastWatchTimes;
-	// @XmlElement(required = true)
+	 @XmlElement(required = true)
 	private boolean suspendMember;
 
 	@Override
@@ -65,9 +57,6 @@ public class MemberVO {
 		return memberAccount;
 	}
 
-	@Id
-	@SequenceGenerator(name = "id", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "id")
 	public int getMemberId() {
 		return memberId;
 	}
@@ -139,7 +128,6 @@ public class MemberVO {
 	public void setMemberNickname(String memberNickname) {
 		this.memberNickname = memberNickname;
 	}
-	@Temporal(TemporalType.DATE)
 	public java.util.Date getMemberBirthday() {
 		return memberBirthday;
 	}
@@ -155,7 +143,6 @@ public class MemberVO {
 	public void setMemberPhoto(byte[] memberPhoto) {
 		this.memberPhoto = memberPhoto;
 	}
-	@Temporal(TemporalType.DATE)
 	public java.util.Date getMemberRegisterTime() {
 		return memberRegisterTime;
 	}
@@ -195,7 +182,6 @@ public class MemberVO {
 	public void setBroadcastClassName(String broadcastClassName) {
 		this.broadcastClassName = broadcastClassName;
 	}
-	@Temporal(TemporalType.DATE)
 	public java.util.Date getBroadcastTime() {
 		return broadcastTime;
 	}

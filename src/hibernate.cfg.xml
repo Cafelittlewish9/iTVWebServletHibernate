@@ -18,9 +18,24 @@
 		<property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
 		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
 		<property name="hibernate.current_session_context_class">thread</property>
-		<property name="hibernate.jdbc.use_streams_for_binary">thread</property>
-		<mapping class="model.vo.MemberVO" />
-		<mapping class="model.vo.ArticleVO" />
-		<mapping class="model.vo.ArticleClassVO" />
+		<property name="hibernate.jdbc.use_streams_for_binary">true</property>
+		
+		<mapping resource="model/vo/Article.hbm.xml" />
+		<mapping resource="model/vo/ArticleClass.hbm.xml" />
+		<mapping resource="model/vo/Black.hbm.xml" />
+		<mapping resource="model/vo/BroadcastOrder.hbm.xml" />
+		<mapping resource="model/vo/Channel.hbm.xml" />
+		<mapping resource="model/vo/Cloud.hbm.xml" />
+		<mapping resource="model/vo/Follow.hbm.xml" />
+		<mapping resource="model/vo/Login.hbm.xml" />
+		<mapping resource="model/vo/Member.hbm.xml" />
+		<mapping resource="model/vo/ReplyArticle.hbm.xml" />
+		<mapping resource="model/vo/ReportArticle.hbm.xml" />
+		<mapping resource="model/vo/ReportMember.hbm.xml" />
+		<mapping resource="model/vo/ReportReplyArticle.hbm.xml" />
+		<mapping resource="model/vo/ReportVideo.hbm.xml" />
+		<mapping resource="model/vo/Show.hbm.xml" />
+		<mapping resource="model/vo/Video.hbm.xml" />
+		<mapping resource="model/vo/VideoComments.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

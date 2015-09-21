@@ -53,9 +53,6 @@ public class ShowDAOjdbc implements ShowDAO {
 				result.setMemberId(rset.getInt("memberId"));
 				result.setShowTime(ConvertType.convertToLocalTime(rset.getTimestamp("showTime")));
 				result.setWebsite(rset.getString("website"));
-				MemberVO member = new MemberVO();
-				member.setBroadcastTitle(rset.getString("broadcastTitle"));
-				result.setMember(member);
 				list.add(result);
 			}
 		} catch (SQLException e) {
