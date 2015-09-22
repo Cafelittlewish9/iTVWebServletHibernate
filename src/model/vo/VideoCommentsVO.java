@@ -22,6 +22,8 @@ public class VideoCommentsVO implements Serializable {
 	private java.util.Date commentTime;
 	@XmlElement(required = true)
 	private MemberVO member;
+	@XmlElement(required = true)
+	private VideoVO video;
 
 	@Override
 	public String toString() {
@@ -76,5 +78,13 @@ public class VideoCommentsVO implements Serializable {
 
 	public void setMember(MemberVO member) {
 		this.member = member;
+	}
+
+	public VideoVO getVideo() {
+		return video;
+	}
+
+	public void setVideo(VideoVO video) {
+		this.video = video;
 	}
 }

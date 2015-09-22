@@ -13,7 +13,7 @@ public class BroadcastOrderVO implements Serializable {
 	@XmlElement(required = true)
 	private String memberAccount;
 	@XmlElement(required = true)
-	private String broadcastWebsite;
+	private String broadcastSite;
 	@XmlElement(required = true)
 	private String broadcastTitle;
 	@XmlElement(required = true)
@@ -23,7 +23,7 @@ public class BroadcastOrderVO implements Serializable {
 
 	@Override
 	public String toString() {
-		return memberAccount + "標題: " + broadcastTitle + "網址: " + broadcastWebsite + System.lineSeparator();
+		return memberAccount + "標題: " + broadcastTitle + "網址: " + broadcastSite + System.lineSeparator();
 	}
 
 	public String getMemberAccount() {
@@ -34,12 +34,12 @@ public class BroadcastOrderVO implements Serializable {
 		this.memberAccount = memberAccount;
 	}
 
-	public String getBroadcastWebsite() {
-		return broadcastWebsite;
+	public String getBroadcastSite() {
+		return broadcastSite;
 	}
 
-	public void setBroadcastWebsite(String broadcastWebsite) {
-		this.broadcastWebsite = broadcastWebsite;
+	public void setBroadcastSite(String broadcastSite) {
+		this.broadcastSite = broadcastSite;
 	}
 
 	public String getBroadcastTitle() {

@@ -27,5 +27,10 @@
 		<property name="broadcastDescription" column="broadcastDescription" />
 		<property name="broadcastWatchTimes" column="broadcastWatchTimes" />
 		<property name="suspendMember" column="suspendMember" />
+		
+		<set name="videos" table="Video" lazy="false" order-by="videoUploadTime desc">
+			<key><column name="memberId" /></key>
+			<one-to-many class="model.vo.VideoVO" />
+		</set>
 	</class>
 </hibernate-mapping>

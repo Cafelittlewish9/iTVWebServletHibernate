@@ -2,6 +2,9 @@ package model.vo;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -29,8 +32,10 @@ public class ArticleVO implements Serializable {
 	private long watchTimes;
 	@XmlElement(required = true)
 	private MemberVO member;
+	@XmlElement(required = true)
 	private ArticleClassVO articleClass;
-	private ReplyArticleVO replyArticles;
+	@XmlElement(required = true)
+	private Set<ReplyArticleVO> replyArticles = new LinkedHashSet<ReplyArticleVO>();
 
 	@Override
 	public String toString() {
@@ -119,11 +124,11 @@ public class ArticleVO implements Serializable {
 		this.articleClass = articleClass;
 	}
 
-	public ReplyArticleVO getReplyArticles() {
+	public Set<ReplyArticleVO> getReplyArticles() {
 		return replyArticles;
 	}
 
-	public void setReplyArticles(ReplyArticleVO replyArticles) {
+	public void setReplyArticles(Set<ReplyArticleVO> replyArticles) {
 		this.replyArticles = replyArticles;
 	}
 }

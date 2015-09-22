@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ShowVO implements Serializable {
@@ -16,7 +19,7 @@ public class ShowVO implements Serializable {
 	@XmlElement(required = true)
 	private java.util.Date showTime;
 	@XmlElement(required = true)
-	private String website;
+	private int videoId;
 	@XmlElement(required = true)
 	private VideoVO video;
 
@@ -24,7 +27,29 @@ public class ShowVO implements Serializable {
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = sdf.format(showTime);
-		return "節目網址: " + website + " (" + date + ")";
+		return "節目網址: " + video.getVideoWebsite() + " (" + date + ")";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
+		if (!(obj instanceof ShowVO)) {
+			return false;
+		}
+		ShowVO bean = (ShowVO) obj;
+		return new EqualsBuilder().append(this.memberId, bean.getMemberId()).append(this.showTime, bean.getShowTime())
+				.isEquals();
+
+	}
+
+	@Override
+	public int hashCode() {
+		 return new HashCodeBuilder()
+                 .append(this.memberId)
+                 .append(this.showTime)
+                 .toHashCode();
 	}
 
 	public int getMemberId() {
@@ -43,12 +68,12 @@ public class ShowVO implements Serializable {
 		this.showTime = showTime;
 	}
 
-	public String getWebsite() {
-		return website;
+	public int getVideoId() {
+		return videoId;
 	}
 
-	public void setWebsite(String website) {
-		this.website = website;
+	public void setVideoId(int videoId) {
+		this.videoId = videoId;
 	}
 
 	public VideoVO getVideo() {

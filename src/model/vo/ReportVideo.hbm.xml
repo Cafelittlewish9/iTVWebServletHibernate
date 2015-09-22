@@ -8,11 +8,10 @@
 		<id name="orderId" column="orderId">
 			<generator class="identity" />
 		</id>
-		<property name="reportedVideoId" column="reportedVideoId" />
 		<property name="reportTime" column="reportTime" />
 		<property name="reportReason" column="reportReason" />
 		<many-to-one name="video" class="model.vo.VideoVO" lazy="false">
-			<column name="ReportVideo。reportedVideoId" />
+			<column name="reportedVideoId" />
 		</many-to-one>
 	</class>
 </hibernate-mapping>

@@ -9,9 +9,8 @@
 			<key-property name="memberId" column="memberId" />
 			<key-property name="showTime" column="showTime" />
 		</composite-id>
-		<property name="website" column="website" />
 		<many-to-one name="video" class="model.vo.VideoVO" lazy="false">
-			<column name="Video.website" />
+			<column name="videoId" />
 		</many-to-one>
 	</class>
 </hibernate-mapping>

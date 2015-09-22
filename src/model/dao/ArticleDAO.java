@@ -10,10 +10,10 @@ public interface ArticleDAO {
 
 	public List<ArticleVO> selectByInput(String subclassNo,String articleTitle,String memberAccount,String memberNickName);
 
-	public boolean insert(ArticleVO article);
+	public int insert(ArticleVO article);
 
-	public boolean update(ArticleVO article);
+	public int update(ArticleVO article);
 
-	public boolean delete(int articleId);
+	public int delete(int articleId);
 
 }

@@ -8,11 +8,10 @@
 		<id name="orderId" column="orderId">
 			<generator class="identity" />
 		</id>
-		<property name="reportedReplyArticleId" column="reportedReplyArticleId" />
 		<property name="reportTime" column="reportTime" />
 		<property name="reportReason" column="reportReason" />
 		<many-to-one name="replyArticle" class="model.vo.ReplyArticleVO" lazy="false">
-			<column name="ReportReplyArticle.reportedReplyArticleId" />
+			<column name="reportedReplyArticleId" />
 		</many-to-one>
 	</class>
 </hibernate-mapping>

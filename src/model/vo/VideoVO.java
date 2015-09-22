@@ -37,6 +37,7 @@ public class VideoVO implements Serializable {
 	private java.util.Date videoDescriptionModifyTime;
 	@XmlElement(required = true)
 	private MemberVO member;
+	@XmlElement(required = true)
 	private Set<VideoCommentsVO> videoComments = new LinkedHashSet<VideoCommentsVO>();
 
 	@Override
