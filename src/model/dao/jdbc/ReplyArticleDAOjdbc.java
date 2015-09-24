@@ -16,18 +16,20 @@ public class ReplyArticleDAOjdbc implements ReplyArticleDAO {
 	// private static final String URL = GC.URL;
 	// private static final String USERNAME = GC.USERNAME;
 	// private static final String PASSWORD = GC.PASSWORD;
-//	private DataSource ds;
-//
-//	public ReplyArticleDAOjdbc() {
-//		try {
-//			Context ctx = new InitialContext();
-//			this.ds = (DataSource) ctx.lookup(GC.DATASOURCE);
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	private static final String SELECT_ALL = "SELECT r.* , m.memberAccount , memberPhoto FROM ReplyArticle r Join member m on r.memberId = m.memberId";
+	// private DataSource ds;
+	//
+	// public ReplyArticleDAOjdbc() {
+	// try {
+	// Context ctx = new InitialContext();
+	// this.ds = (DataSource) ctx.lookup(GC.DATASOURCE);
+	// } catch (NamingException e) {
+	// e.printStackTrace();
+	// }
+	// }
+	//
+	// private static final String SELECT_ALL = "SELECT r.* , m.memberAccount ,
+	// memberPhoto FROM ReplyArticle r Join member m on r.memberId =
+	// m.memberId";
 
 	@Override
 	public List<ReplyArticleVO> selectAll() {
@@ -45,7 +47,10 @@ public class ReplyArticleDAOjdbc implements ReplyArticleDAO {
 		return list;
 	}
 
-//	private static final String SELECT_BY_ARTICLEID = "SELECT replyArticleId, r.memberId, articleId, replyContent, publishTime, modifyTime, memberAccount, memberPhoto FROM ReplyArticle r JOIN Member m ON r.memberId = m.memberId WHERE articleId = ?";
+	// private static final String SELECT_BY_ARTICLEID = "SELECT replyArticleId,
+	// r.memberId, articleId, replyContent, publishTime, modifyTime,
+	// memberAccount, memberPhoto FROM ReplyArticle r JOIN Member m ON
+	// r.memberId = m.memberId WHERE articleId = ?";
 
 	@Override
 	public List<ReplyArticleVO> selectByArticleId(int articleId) {
@@ -63,7 +68,8 @@ public class ReplyArticleDAOjdbc implements ReplyArticleDAO {
 		return list;
 	}
 
-//	private static final String INSERT = "INSERT INTO ReplyArticle(memberId, articleId, replyContent) VALUES (?, ?, ?)";
+	// private static final String INSERT = "INSERT INTO ReplyArticle(memberId,
+	// articleId, replyContent) VALUES (?, ?, ?)";
 
 	@Override
 	public int insert(ReplyArticleVO bean) {
@@ -81,7 +87,8 @@ public class ReplyArticleDAOjdbc implements ReplyArticleDAO {
 		return result;
 	}
 
-//	private static final String UPDATE = "UPDATE ReplyArticle SET replyContent = ?, modifyTime = GETUTCDATE() WHERE replyArticleId = ?";
+	// private static final String UPDATE = "UPDATE ReplyArticle SET
+	// replyContent = ?, modifyTime = GETUTCDATE() WHERE replyArticleId = ?";
 
 	@Override
 	public int update(ReplyArticleVO bean) {
@@ -99,7 +106,9 @@ public class ReplyArticleDAOjdbc implements ReplyArticleDAO {
 		return result;
 	}
 
-//	private static final String DELETE = "UPDATE ReplyArticle SET replyContent = N'文章已被刪除', modifyTime = GETUTCDATE() WHERE replyArticleId = ?";
+	// private static final String DELETE = "UPDATE ReplyArticle SET
+	// replyContent = N'文章已被刪除', modifyTime = GETUTCDATE() WHERE replyArticleId
+	// = ?";
 
 	@Override
 	public int delete(int replyArticleId) {
@@ -107,9 +116,10 @@ public class ReplyArticleDAOjdbc implements ReplyArticleDAO {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("delete from ReplyArticleVO where replyArticleId = ?").setParameter(0, replyArticleId);
-			result = query.executeUpdate();
+			ReplyArticleVO bean = (ReplyArticleVO) session.get(ReplyArticleVO.class, replyArticleId);
+			bean.setReplyContent("文章已被刪除");
 			session.getTransaction().commit();
+			result = 1;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			e.printStackTrace();

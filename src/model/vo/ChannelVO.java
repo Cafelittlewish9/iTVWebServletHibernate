@@ -2,21 +2,10 @@ package model.vo;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ChannelVO implements Serializable {
-	@XmlElement(required = true)
 	private int memberId;
-	@XmlElement(required = true)
 	private byte channelNo;
-	@XmlElement(required = true)
 	private String broadcastWebsite;
-	@XmlElement(required = true)
 	private MemberVO member;
 
 	@Override

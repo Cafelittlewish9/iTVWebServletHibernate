@@ -1,60 +1,29 @@
 package model.vo;
 
 import java.io.Serializable;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name = "Member")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class MemberVO implements Serializable {
 
-	@XmlElement(required = true)
 	private int memberId;
-	@XmlElement(required = true)
 	private String memberAccount;
-	@XmlElement(required = true)
 	private byte[] memberPassword;
-	@XmlElement(required = true)
 	private String memberEmail;
-	@XmlElement(required = true)
 	private String memberFB;
-	@XmlElement(required = true)
 	private String memberGoogle;
-	@XmlElement(required = true)
 	private String memberTwitter;
-	@XmlElement(required = true)
 	private String memberName;
-	@XmlElement(required = true)
 	private String memberNickname;
-	@XmlElement(required = true)
 	private java.util.Date memberBirthday;
-	@XmlElement(required = true)
 	private byte[] memberPhoto;
-	@XmlElement(required = true)
 	private java.util.Date memberRegisterTime;
-	@XmlElement(required = true)
 	private String memberSelfIntroduction;
-	@XmlElement(required = true)
 	private String broadcastWebsite;
-	@XmlElement(required = true)
 	private String broadcastTitle;
-	@XmlElement(required = true)
 	private String broadcastClassName;
-	@XmlElement(required = true)
 	private java.util.Date broadcastTime;
-	@XmlElement(required = true)
 	private String broadcastDescription;
-	@XmlElement(required = true)
 	private long broadcastWatchTimes;
-	@XmlElement(required = true)
 	private boolean suspendMember;
-	@XmlElement(required = true)
-	private Set<VideoVO> videos = new LinkedHashSet<VideoVO>();
 
 	@Override
 	public String toString() {
@@ -219,13 +188,5 @@ public class MemberVO implements Serializable {
 
 	public void setSuspendMember(boolean suspendMember) {
 		this.suspendMember = suspendMember;
-	}
-
-	public Set<VideoVO> getVideos() {
-		return videos;
-	}
-
-	public void setVideos(Set<VideoVO> videos) {
-		this.videos = videos;
 	}
 }

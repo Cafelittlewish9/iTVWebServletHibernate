@@ -2,22 +2,12 @@ package model.vo;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class BlackVO implements Serializable {
-	@XmlElement(required = true)
 	private int memberId;
-	@XmlElement(required = true)
 	private int blackedId;
-	@XmlElement(required = true)
 	private MemberVO member;
 
 	@Override

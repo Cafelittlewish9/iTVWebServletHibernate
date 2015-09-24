@@ -28,24 +28,28 @@ import util.GC;
 import util.HibernateUtil;
 
 public class ReportArticleDAOjdbc implements ReportArticleDAO {
-//	private static final String URL = GC.URL;
-//	private static final String USERNAME = GC.USERNAME;
-//	private static final String PASSWORD = GC.PASSWORD;
-//	private DataSource ds;
-//
-//	public ReportArticleDAOjdbc() {
-//		try {
-//			Context ctx = new InitialContext();
-//			this.ds = (DataSource) ctx.lookup(GC.DATASOURCE);
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	private static final String SELECT_ALL = "SELECT orderId, reportedArticleId, reportTime, reportReason, articleId,"
-//			+ "a.memberId, memberAccount, memberPhoto, articleTitle, articleContent, modifyTime,a.subclassNo, className, subclassName "
-//			+ "FROM ReportArticle r JOIN Article a ON r.reportedArticleId = a.articleId JOIN Member m "
-//			+ "ON a.memberId = m.memberId JOIN ArticleClass ac ON a.subclassNo = ac.subclassNo ORDER BY reportTime DESC";
+	// private static final String URL = GC.URL;
+	// private static final String USERNAME = GC.USERNAME;
+	// private static final String PASSWORD = GC.PASSWORD;
+	// private DataSource ds;
+	//
+	// public ReportArticleDAOjdbc() {
+	// try {
+	// Context ctx = new InitialContext();
+	// this.ds = (DataSource) ctx.lookup(GC.DATASOURCE);
+	// } catch (NamingException e) {
+	// e.printStackTrace();
+	// }
+	// }
+	//
+	// private static final String SELECT_ALL = "SELECT orderId,
+	// reportedArticleId, reportTime, reportReason, articleId,"
+	// + "a.memberId, memberAccount, memberPhoto, articleTitle, articleContent,
+	// modifyTime,a.subclassNo, className, subclassName "
+	// + "FROM ReportArticle r JOIN Article a ON r.reportedArticleId =
+	// a.articleId JOIN Member m "
+	// + "ON a.memberId = m.memberId JOIN ArticleClass ac ON a.subclassNo =
+	// ac.subclassNo ORDER BY reportTime DESC";
 
 	@Override
 	public List<ReportArticleVO> selectAll() {
@@ -63,7 +67,8 @@ public class ReportArticleDAOjdbc implements ReportArticleDAO {
 		return list;
 	}
 
-//	private static final String INSERT = " INSERT INTO ReportArticle(reportedArticleId, reportReason) VALUES(?, ?) ";
+	// private static final String INSERT = " INSERT INTO
+	// ReportArticle(reportedArticleId, reportReason) VALUES(?, ?) ";
 
 	@Override
 	public int insert(ReportArticleVO reportArticle) {
@@ -81,7 +86,8 @@ public class ReportArticleDAOjdbc implements ReportArticleDAO {
 		return result;
 	}
 
-//	private static final String DELETE = " DELETE FROM ReportArticle WHERE orderId = ?";
+	// private static final String DELETE = " DELETE FROM ReportArticle WHERE
+	// orderId = ?";
 
 	@Override
 	public int delete(int orderId) {
@@ -110,8 +116,8 @@ public class ReportArticleDAOjdbc implements ReportArticleDAO {
 		// boolean test1 = dao.insert(temp1);
 		// System.out.println(test1);
 		// DELETE
-//		boolean test3 = dao.delete(13);
-//		System.out.println(test3);
+		// boolean test3 = dao.delete(13);
+		// System.out.println(test3);
 		// SELECT_ALL
 		List<ReportArticleVO> list = dao.selectAll();
 		for (ReportArticleVO dept : list) {

@@ -5,12 +5,19 @@
 	id="WebApp_ID" version="3.1">
 	<display-name>iTvServletJdbc</display-name>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>/HomePageVersion3.jsp</welcome-file>
 	</welcome-file-list>
-<!-- 	<resource-ref> -->
-<!-- 		<res-ref-name>jdbc/iTV</res-ref-name> -->
-<!-- 		<res-type>javax.sql.DataSource</res-type> -->
-<!-- 		<res-auth>Container</res-auth> -->
-<!-- 		<res-sharing-scope>Shareable</res-sharing-scope> -->
-<!-- 	</resource-ref> -->
+	<resource-ref>
+		<res-ref-name>jdbc/iTV</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
+	<servlet>
+		<servlet-name>Photo</servlet-name>
+		<servlet-class>controller.Photo</servlet-class>
+		<multipart-config>
+			<location>d:/png/</location>
+		</multipart-config>
+	</servlet>
 </web-app>

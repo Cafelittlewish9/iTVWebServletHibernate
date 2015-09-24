@@ -3,29 +3,14 @@ package model.vo;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ReplyArticleVO implements Serializable {
-	@XmlElement(required = true)
 	private int replyArticleId;
-	@XmlElement(required = true)
 	private int memberId;
-	@XmlElement(required = true)
 	private int articleId;
-	@XmlElement(required = true)
 	private String replyContent;
-	@XmlElement(required = true)
 	private java.util.Date publishTime;
-	@XmlElement(required = true)
 	private java.util.Date modifyTime;
-	@XmlElement(required = true)
 	private MemberVO member;
-	@XmlElement(required = true)
 	private ArticleVO article;
 
 	@Override

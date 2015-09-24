@@ -3,22 +3,12 @@ package model.vo;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class LoginVO implements Serializable {
-	@XmlElement(required = true)
 	private java.util.Date loginTime;
-	@XmlElement(required = true)
 	private String ip;
-	@XmlElement(required = true)
 	private String memberAccount;
 
 	@Override

@@ -73,8 +73,7 @@ public class ArticleDAOjdbc implements ArticleDAO {
 	 * @return List<ArticleVO>
 	 */
 	@Override
-	public List<ArticleVO> selectByInput(String subclassNo, String articleTitle, String memberAccount,
-			String memberNickName) {
+	public List<ArticleVO> selectByInput(String subclassNo, String articleTitle) {
 		List<ArticleVO> list = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
@@ -145,7 +144,7 @@ public class ArticleDAOjdbc implements ArticleDAO {
 		return result;
 	}
 
-	private static final String DELETE = "UPDATE Article SET articleContent = N'文章已被刪除', modifyTime = GETUTCDATE() WHERE articleId = ?";
+//	private static final String DELETE = "UPDATE Article SET articleContent = N'文章已被刪除', modifyTime = GETUTCDATE() WHERE articleId = ?";
 
 	/**
 	 * 刪除文章，僅有發文者本人能於登入狀態看到刪除按鈕，當文章確定刪除後，刪除按鈕即消失
@@ -155,14 +154,14 @@ public class ArticleDAOjdbc implements ArticleDAO {
 	 * @return true 刪除成功；false 刪除失敗
 	 */
 	@Override
-	public int delete(int articleId) {
+	public int delete(ArticleVO bean) {
 		int result = -1;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("delete from ArticleVO where articleId = ?").setParameter(0, articleId);
-			result = query.executeUpdate();
+			bean.setArticleContent("文章已被刪除");
 			session.getTransaction().commit();
+			result = 1;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			e.printStackTrace();
@@ -183,11 +182,8 @@ public class ArticleDAOjdbc implements ArticleDAO {
 		// temp.update(avo);
 		// System.out.println(temp.selectAll());
 		// System.out.println(temp.delete(13, 2));
-		List<ArticleVO> list = temp.selectByInput("C", "皮卡丘", "", "");
+		List<ArticleVO> list = temp.selectByInput("C", "皮卡丘");
 		for (ArticleVO bean : list) {
-			for (ReplyArticleVO bean2 : bean.getReplyArticles()) {
-				System.out.println(bean2.getReplyContent());
-			}
 		}
 		// avo.setMemberId(1);
 		// avo.setArticleId(14);

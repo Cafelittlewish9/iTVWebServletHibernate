@@ -51,11 +51,11 @@ public class CloudService {
 		return result;
 	}
 
-	public Collection<CloudVO> searchFile(int memberId, String fileName, String fileType) {
+	public Collection<CloudVO> searchFile(int memberId, String fileType, String fileName) {
 		Collection<CloudVO> result = null;
 		if (fileName != null && fileName.trim().length() != 0) {
 			if (fileType != null && fileType.trim().length() != 0) {
-				result = dao.selectByFileNameAndFileType(memberId, fileName, fileType);
+				result = dao.selectByFileNameAndFileType(memberId, fileType, fileName);
 			}
 		}
 		return result;
@@ -85,27 +85,44 @@ public class CloudService {
 		return result;
 	}
 
-	public boolean addFile(int memberId, String fileName, String fileType, String filePath, long fileSize) {
+	// ***********
+	public boolean addFile(CloudVO bean) {
 		boolean result = false;
+		if (bean != null) {
+			int temp = dao.insert(bean);
+			if (temp == 1) {
+				result = true;
+			}
+		}
 		return result;
 	}
 
-	public boolean modifyFile(int fileId, String filePath, long fileSize) {
+	public boolean modifyFile(CloudVO bean) {
 		boolean result = false;
+		if (bean != null) {
+			int temp = dao.updateFile(bean);
+			if (temp == 1) {
+				result = true;
+			}
+		}
 		return result;
 	}
 
 	public boolean modifyFileName(int fileId, String fileName, String filePath) {
 		boolean result = false;
+		int i = dao.updateFileName(fileId, fileName, filePath);
+		if (i == 1) {
+			return true;
+		}
 		return result;
 	}
 
 	public boolean deleteFile(int fileId) {
+		boolean result = false;
 		int temp = dao.delete(fileId);
 		if (temp == 1) {
-			return true;
-		} else {
-			return false;
+			result = true;
 		}
+		return result;
 	}
 }

@@ -7,6 +7,8 @@ import model.vo.VideoCommentsVO;
 public interface VideoCommentsDAO {
 
 	public List<VideoCommentsVO> selectAll();
+	
+	public List<VideoCommentsVO> selectByVideoId(int videoId);
 
 	public int insert(VideoCommentsVO videoComments);
 

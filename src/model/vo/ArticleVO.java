@@ -2,40 +2,19 @@ package model.vo;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ArticleVO implements Serializable {
 
-	@XmlElement(required = true)
 	private int articleId;
-	@XmlElement(required = true)
 	private int memberId;
-	@XmlElement(required = true)
 	private String subclassNo;
-	@XmlElement(required = true)
 	private String articleTitle;
-	@XmlElement(required = true)
 	private String articleContent;
-	@XmlElement(required = true)
 	private java.util.Date publishTime;
-	@XmlElement(required = true)
 	private java.util.Date modifyTime;
-	@XmlElement(required = true)
 	private long watchTimes;
-	@XmlElement(required = true)
 	private MemberVO member;
-	@XmlElement(required = true)
 	private ArticleClassVO articleClass;
-	@XmlElement(required = true)
-	private Set<ReplyArticleVO> replyArticles = new LinkedHashSet<ReplyArticleVO>();
 
 	@Override
 	public String toString() {
@@ -122,13 +101,5 @@ public class ArticleVO implements Serializable {
 
 	public void setArticleClass(ArticleClassVO articleClass) {
 		this.articleClass = articleClass;
-	}
-
-	public Set<ReplyArticleVO> getReplyArticles() {
-		return replyArticles;
-	}
-
-	public void setReplyArticles(Set<ReplyArticleVO> replyArticles) {
-		this.replyArticles = replyArticles;
 	}
 }

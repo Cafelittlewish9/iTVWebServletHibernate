@@ -47,7 +47,9 @@ public class MemberDAOjdbc implements MemberDAO {
 
 	// 用戶只需要輸入密碼跟信箱，自動產生memberAccount和broadcastWebsite網址
 	// 問題在於若不同人在不同網站申請相同帳號的信箱，後者會無法申請，因為自動產生的broadcastWebsite會重複
-//	private static final String INSERT2 = "INSERT INTO member (memberEmail,memberPassword,memberAccount,broadcastWebsite) VALUES (?,cast( ? as varbinary(50)), ?,?)";
+	// private static final String INSERT2 = "INSERT INTO member
+	// (memberEmail,memberPassword,memberAccount,broadcastWebsite) VALUES
+	// (?,cast( ? as varbinary(50)), ?,?)";
 
 	@Override
 	public int insert2(MemberVO member) {
@@ -66,7 +68,9 @@ public class MemberDAOjdbc implements MemberDAO {
 		return result;
 	}
 
-//	private static final String GET_MEMBER_LIST = "SELECT memberId,memberAccount, broadcastWebsite FROM member ORDER BY memberAccount";
+	// private static final String GET_MEMBER_LIST = "SELECT
+	// memberId,memberAccount, broadcastWebsite FROM member ORDER BY
+	// memberAccount";
 
 	@Override
 	public List<MemberVO> getMemberList() {
@@ -84,7 +88,8 @@ public class MemberDAOjdbc implements MemberDAO {
 		return list;
 	}
 
-//	private static final String GET_ID = "SELECT memberId FROM member WHERE memberAccount=?";
+	// private static final String GET_ID = "SELECT memberId FROM member WHERE
+	// memberAccount=?";
 
 	@Override
 	public int getId(String memberAccount) {
@@ -105,23 +110,20 @@ public class MemberDAOjdbc implements MemberDAO {
 	}
 
 	// 新增
-//	private static final String UPDATE = "UPDATE member SET memberPassword=?, memberEmail=?, memberFB=?, memberGoogle=?, memberTwitter=?, memberNickname=?,"
-//			+ "memberBirthday=?,memberPhoto=?,memberSelfIntroduction=?,broadcastTitle=?,broadcastClassName=?,"
-//			+ "broadcastTime=?,broadcastDescription=? WHERE memberId=?";
+	// private static final String UPDATE = "UPDATE member SET memberPassword=?,
+	// memberEmail=?, memberFB=?, memberGoogle=?, memberTwitter=?,
+	// memberNickname=?,"
+	// +
+	// "memberBirthday=?,memberPhoto=?,memberSelfIntroduction=?,broadcastTitle=?,broadcastClassName=?,"
+	// + "broadcastTime=?,broadcastDescription=? WHERE memberId=?";
 
 	@Override
 	public int update(MemberVO member) {
-		// 要先檢查bean是否為null
 		int result = -1;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			MemberVO bean = (MemberVO) session.get(MemberVO.class, member.getMemberId());
-			bean.setMemberPassword(member.getMemberPassword());
-			bean.setMemberEmail(member.getMemberEmail());
-			bean.setMemberNickname(member.getMemberNickname());
-			bean.setMemberPhoto(member.getMemberPhoto());
-			bean.setMemberSelfIntroduction(member.getMemberSelfIntroduction());
+			session.saveOrUpdate(member);
 			session.getTransaction().commit();
 			result = 1;
 		} catch (Exception e) {
@@ -131,10 +133,13 @@ public class MemberDAOjdbc implements MemberDAO {
 		return result;
 	}
 
-//	private static final String FIND_BY_PK = "SELECT memberId,memberAccount,memberEmail,memberFB,memberGoogle,memberTwitter,memberName,"
-//			+ "memberNickname,memberBirthday,memberPhoto,memberRegisterTime,memberSelfIntroduction,"
-//			+ "broadcastWebsite,broadcastTitle,broadcastClassName,broadcastTime,broadcastDescription,"
-//			+ "broadcastWatchTimes FROM member WHERE memberId=?";
+	// private static final String FIND_BY_PK = "SELECT
+	// memberId,memberAccount,memberEmail,memberFB,memberGoogle,memberTwitter,memberName,"
+	// +
+	// "memberNickname,memberBirthday,memberPhoto,memberRegisterTime,memberSelfIntroduction,"
+	// +
+	// "broadcastWebsite,broadcastTitle,broadcastClassName,broadcastTime,broadcastDescription,"
+	// + "broadcastWatchTimes FROM member WHERE memberId=?";
 
 	@Override
 	public MemberVO findByPK(int memberId) {
@@ -152,7 +157,8 @@ public class MemberDAOjdbc implements MemberDAO {
 	}
 
 	// 設定用戶是否被停權
-//	private static final String SWITCH_SUSPEND = "UPDATE member SET suspendMember = ? WHERE memberId = ?";
+	// private static final String SWITCH_SUSPEND = "UPDATE member SET
+	// suspendMember = ? WHERE memberId = ?";
 
 	@Override
 	public int switchSuspend(int memberId, boolean suspendRight) {
@@ -163,6 +169,75 @@ public class MemberDAOjdbc implements MemberDAO {
 			MemberVO bean = (MemberVO) session.get(MemberVO.class, memberId);
 			bean.setSuspendMember(suspendRight);
 			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public String getMemberAccount(String memberAccount) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		String memberAccountResult = null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("select memberAccount from MemberVO where memberAccount = ?")
+					.setParameter(0, memberAccount);
+			memberAccountResult = (String) query.list().get(0);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return memberAccountResult;
+	}
+
+	@Override
+	public MemberVO findByMemberAccount(String memberAccount) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		MemberVO bean = null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from MemberVO where memberAccount = ?").setParameter(0, memberAccount);
+			bean = (MemberVO) query.list().get(0);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return bean;
+	}
+
+	@Override
+	public MemberVO findByEmail(String email) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		MemberVO bean = null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from MemberVO where memberEmail = ?").setParameter(0, email);
+			bean = (MemberVO) query.list().get(0);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return bean;
+	}
+	// private static final String UPDATE_PHOTO = "UPDATE Member SET memberPhoto
+	// = ? WHERE memberAccount = ?";
+
+	@Override
+	public int updatePhoto(int memberId, byte[] photo) {
+		int result = -1;
+		MemberVO bean = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			bean = (MemberVO) session.get(MemberVO.class, memberId);
+			bean.setMemberPhoto(photo);
+			session.getTransaction().commit();
+			result = 1;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			e.printStackTrace();
@@ -197,12 +272,13 @@ public class MemberDAOjdbc implements MemberDAO {
 		// System.out.println("insert2 " + count2 + " rows");
 
 		// memberDao的get member list
-		// List<MemberVO> members = temp.getMemberList();
-		// for (MemberVO member : members) {
-		// System.out.print(member.getMemberId() + ", ");
-		// System.out.print(member.getMemberAccount() + ", ");
-		// System.out.println(member.getBroadcastWebsite());
-		// }
+		List<MemberVO> members = temp.getMemberList();
+		for (MemberVO member : members) {
+			System.out.print(member.getMemberId() + ", ");
+			System.out.print(member.getMemberAccount() + ", ");
+			System.out.print(member.getMemberPhoto() + ", ");
+			System.out.println(member.getBroadcastWebsite());
+		}
 
 		// memberDao的getId
 		// System.out.print(temp.getId("godzilla"));
@@ -241,25 +317,26 @@ public class MemberDAOjdbc implements MemberDAO {
 		// member3.getBroadcastWatchTimes());
 		//
 		// update
-//		MemberVO member4 = new MemberVO();
-//		member4.setMemberPassword("normal".getBytes());
-//		member4.setMemberEmail("normal@yahoo.com");
-//		member4.setMemberFB("abuse");
-//		member4.setMemberGoogle("abnormal@gmail.com");
-//		member4.setMemberTwitter("cure");
-//		member4.setMemberNickname("insane");
-//		java.text.SimpleDateFormat converter = new java.text.SimpleDateFormat("yyyy-MM-dd");
-//		member4.setMemberBirthday(converter.parse("2015-2-29"));
-//		member4.setMemberPhoto("".getBytes());
-//		member4.setMemberSelfIntroduction("Why so serious?");
-//		member4.setBroadcastTitle("crazy world");
-//		member4.setBroadcastClassName("life");
-//		member4.setBroadcastTime(converter.parse("2015-11-30"));
-//		member4.setBroadcastDescription("I try to be a good person");
-//		member4.setMemberId(17);
-//		member4.setMemberAccount("xxxx");
-//		int count3 = temp.update(member4);
-//		System.out.println("update " + count3 + " rows");
-		temp.switchSuspend(17, true);
+		// MemberVO member4 = new MemberVO();
+		// member4.setMemberPassword("normal".getBytes());
+		// member4.setMemberEmail("normal@yahoo.com");
+		// member4.setMemberFB("abuse");
+		// member4.setMemberGoogle("abnormal@gmail.com");
+		// member4.setMemberTwitter("cure");
+		// member4.setMemberNickname("insane");
+		// java.text.SimpleDateFormat converter = new
+		// java.text.SimpleDateFormat("yyyy-MM-dd");
+		// member4.setMemberBirthday(converter.parse("2015-2-29"));
+		// member4.setMemberPhoto("".getBytes());
+		// member4.setMemberSelfIntroduction("Why so serious?");
+		// member4.setBroadcastTitle("crazy world");
+		// member4.setBroadcastClassName("life");
+		// member4.setBroadcastTime(converter.parse("2015-11-30"));
+		// member4.setBroadcastDescription("I try to be a good person");
+		// member4.setMemberId(17);
+		// member4.setMemberAccount("xxxx");
+		// int count3 = temp.update(member4);
+		// System.out.println("update " + count3 + " rows");
+		// temp.switchSuspend(17, true);
 	}
 }

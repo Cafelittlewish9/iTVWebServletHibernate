@@ -3,25 +3,15 @@ package model.vo;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ShowVO implements Serializable {
-	@XmlElement(required = true)
 	private int memberId;
-	@XmlElement(required = true)
 	private java.util.Date showTime;
-	@XmlElement(required = true)
 	private int videoId;
-	@XmlElement(required = true)
 	private VideoVO video;
+	private MemberVO member;
 
 	@Override
 	public String toString() {
@@ -46,10 +36,7 @@ public class ShowVO implements Serializable {
 
 	@Override
 	public int hashCode() {
-		 return new HashCodeBuilder()
-                 .append(this.memberId)
-                 .append(this.showTime)
-                 .toHashCode();
+		return new HashCodeBuilder().append(this.memberId).append(this.showTime).toHashCode();
 	}
 
 	public int getMemberId() {
@@ -83,4 +70,13 @@ public class ShowVO implements Serializable {
 	public void setVideo(VideoVO video) {
 		this.video = video;
 	}
+
+	public MemberVO getMember() {
+		return member;
+	}
+
+	public void setMember(MemberVO member) {
+		this.member = member;
+	}
+
 }
